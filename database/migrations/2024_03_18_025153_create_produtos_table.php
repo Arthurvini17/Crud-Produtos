@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('categoria');
-            $table->decimal('preco');
+            $table->decimal('preco', 10, 2);
             $table->date('validade');
             $table->longText('comentario');
             $table->timestamps();

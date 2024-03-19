@@ -7,9 +7,28 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function index()
+    {
+        $produtos = Produtos::all();
+        return view('crud.create-product', ['produtos' => $produtos]);
+    }
 
+    public function edit(Produtos $produtos, $id)
+    {
+        $produtos = Produtos::find($id);
+        return view('crud.edit-product', ['produtos' => $produtos]);
+    }
+
+    public function delete($id)
+    {
+        $produto = Produtos::findOrFail($id);
+        $produto->delete();
+        return redirect()->route('home.index');
+    }
     public function store(Request $request)
     {
+
+
         $request->validate(
             [
                 'name' => 'required',
@@ -28,7 +47,6 @@ class ProductController extends Controller
                 'preco.numeric' => 'O preço tem que ser numeros',
             ]
         );
-
         Produtos::create([
             'name' => $request->name,
             'categoria' => $request->categoria,
@@ -36,11 +54,6 @@ class ProductController extends Controller
             'validade' => $request->validade,
             'preco' => $request->preco,
         ]);
-        return view('crud.home');
-    }
-    public function index()
-    {
-        $produtos = Produtos::all();
-        return view('crud.create-product', ['produtos' => $produtos]);
+        return redirect()->route('home.index');
     }
 }

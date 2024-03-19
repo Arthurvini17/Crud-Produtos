@@ -20,3 +20,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/adicionar-produto', [ProductController::class, 'index'])->name('create.product');
 Route::post('/adicionar-produto', [ProductController::class, 'store'])->name('store.product');
 
+Route::post('/produtos/{id}', [ProductController::class, 'delete'])->name('delete.product');
+
+Route::get('/editar-produto/{id}', [ProductController::class, 'edit'])->name('edit.product');
+
