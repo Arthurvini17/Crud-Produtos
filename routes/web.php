@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,10 @@ Route::get('/adicionar-produto', [ProductController::class, 'index'])->name('cre
 Route::post('/adicionar-produto', [ProductController::class, 'store'])->name('store.product');
 
 Route::post('/produtos/{id}', [ProductController::class, 'delete'])->name('delete.product');
+
+Route::get('/gerar-pdf{id}', [PDFController::class, 'generatePDF'])->name('gerar.pdf');
+
+Route::post('/editar-produto/edit/{id}', [ProductController::class, 'update'])->name('update.product');
 
 Route::get('/editar-produto/{id}', [ProductController::class, 'edit'])->name('edit.product');
 

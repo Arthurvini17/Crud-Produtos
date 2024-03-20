@@ -28,7 +28,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-
         $request->validate(
             [
                 'name' => 'required',
@@ -56,4 +55,22 @@ class ProductController extends Controller
         ]);
         return redirect()->route('home.index');
     }
+
+
+    public function update(Request $request, $id){
+        $produto = Produtos::findOrFail($id);
+
+        $produto->name = $request->name;
+        $produto->validade = $request->validade;
+        $produto->comentario = $request->comentario;
+        $produto->preco = $request->preco;
+        $produto->categoria = $request->categoria;
+
+        $produto->save();
+
+        // return redirect()->route('edit.product', ['id' => $produto->id])->with('atualizado', 'Produto atualizado!');
+
+        return redirect('/')->with('atualizado', 'Produto atualizado');
+    }
+
 }
